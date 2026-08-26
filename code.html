@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Weekend Roulette — Stop Arguing Over Where to Date</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#0A0E1A',
+          surface: '#131829',
+          surface2: '#1B2138',
+          hairline: '#2A3151',
+          pink: '#FF3D8A',
+          blue: '#33C6FF',
+          gold: '#FFC857',
+          green: '#39D98A',
+          muted: '#8D93AC',
+        },
+        fontFamily: {
+          display: ['"Bricolage Grotesque"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"Space Mono"', 'monospace'],
+        },
+        boxShadow: {
+          'glow-pink': '0 0 40px -8px rgba(255,61,138,0.55)',
+          'glow-blue': '0 0 40px -8px rgba(51,198,255,0.45)',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background-color: #0A0E1A; }
+  .bg-noise {
+    background-image: radial-gradient(circle at 15% 10%, rgba(255,61,138,0.14), transparent 40%),
+                       radial-gradient(circle at 85% 0%, rgba(51,198,255,0.14), transparent 45%),
+                       radial-gradient(circle at 50% 100%, rgba(255,61,138,0.08), transparent 50%);
+  }
+  .dash-divider {
+    background-image: repeating-linear-gradient(to right, #2A3151 0, #2A3151 8px, transparent 8px, transparent 16px);
+    height: 2px;
+  }
+  .venue-blur {
+    filter: blur(5px);
+    transition: filter .35s ease, transform .35s ease;
+  }
+  .venue-card:hover .venue-blur,
+  .venue-card:focus-within .venue-blur {
+    filter: blur(0px);
+  }
+  .venue-card:hover .peek-hint { opacity: 0; }
+  .pay-tab input:checked + div {
+    border-color: #33C6FF;
+    color: #33C6FF;
+    background-color: rgba(51,198,255,0.08);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    .float-slow { animation: floatY 6s ease-in-out infinite; }
+    @keyframes floatY { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+  }
+  ::selection { background: #FF3D8A; color: #0A0E1A; }
+  :focus-visible { outline: 2px solid #33C6FF; outline-offset: 3px; }
+</style>
+</head>
+<body class="font-body text-slate-100 antialiased bg-ink">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 border-b border-hairline/70 bg-ink/80 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 group">
+      <span class="w-2.5 h-2.5 rounded-full bg-pink pulse-dot"></span>
+      <span class="font-display font-semibold text-lg tracking-tight">Weekend<span class="text-pink">Roulette</span></span>
+    </a>
+    <a href="#book" class="hidden sm:inline-flex items-center rounded-full border border-hairline px-4 py-2 text-sm font-medium text-slate-200 hover:border-blue hover:text-blue transition-colors">
+      Plan My Date
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-noise">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-20 sm:pt-24 sm:pb-28 grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 rounded-full bg-surface border border-hairline px-3.5 py-1.5 text-xs font-mono uppercase tracking-widest text-blue">
+        Decision fatigue, solved in ₹149
+      </span>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mt-5 tracking-tight">
+        Stop Arguing<br class="hidden sm:block" />
+        Over Where to <span class="relative inline-block">
+          <span class="relative z-10">Date</span>
+          <span class="absolute left-0 right-0 bottom-1 h-3 bg-pink/40 -z-0 -rotate-1"></span>
+        </span>.
+      </h1>
+      <p class="mt-6 text-lg text-muted max-w-md leading-relaxed">
+        Tell us your vibe and budget. We hand you back one sealed, 3-stop date — dinner, an activity, and a cheerful night — planned and hidden until <span class="text-slate-100 font-medium">your desired time</span> on the day. No group chats. No "idk, you pick."
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <a href="#book" class="inline-flex items-center justify-center rounded-xl bg-pink px-7 py-3.5 font-display font-bold text-ink shadow-glow-pink hover:brightness-110 active:scale-[0.98] transition">
+          Plan My Date →
+        </a>
+        <p class="text-sm text-muted font-mono">₹149 flat · no app, no signup</p>
+      </div>
+      <!-- <div class="mt-10 flex items-center gap-6 text-muted text-sm"> -->
+        <!-- <div class="flex items-center gap-1.5"><span class="text-gold">★★★★★</span><span>early tester feedback</span></div> -->
+      <!-- </div> -->
+    </div>
+
+    <!-- SIGNATURE: Example itinerary route ticket -->
+    <div class="relative flex justify-center lg:justify-end">
+      <div class="float-slow w-full max-w-sm">
+        <div class="relative rounded-3xl bg-surface border border-hairline shadow-2xl shadow-black/50 p-6 sm:p-7">
+          <div class="absolute -inset-px rounded-3xl bg-gradient-to-br from-pink/25 via-transparent to-blue/25 -z-10 blur-xl"></div>
+
+          <div class="flex items-center justify-between text-xs font-mono text-muted uppercase tracking-widest">
+            <span>Itinerary N0142</span>
+            <span class="flex items-center gap-1.5 text-green"><span class="w-1.5 h-1.5 rounded-full bg-green pulse-dot"></span>Sample</span>
+          </div>
+
+          <!-- Route: 3 stops connected by a dashed line -->
+          <div class="mt-5 relative pl-2">
+            <div class="absolute left-[27px] top-3 bottom-3 w-px" style="background-image: repeating-linear-gradient(to bottom, #2A3151 0, #2A3151 6px, transparent 6px, transparent 12px);"></div>
+
+            <div class="relative flex items-start gap-4 py-2.5">
+              <div class="relative z-10 w-8 h-8 rounded-full bg-ink border-2 border-blue flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="17" r="2.2"/><circle cx="17" cy="17" r="2.2"/><path d="M4 17h1l1.2-7.4A2 2 0 0 1 8.2 8h6.4a2 2 0 0 1 1.9 1.3L18 14h1.5"/><path d="M4.5 14h13"/></svg>
+              </div>
+              <div class="pt-1">
+                <p class="text-[10px] font-mono uppercase tracking-widest text-blue">Activity</p>
+                <p class="font-display font-bold leading-tight">F9 GoKarting</p>
+              </div>
+            </div>
+
+            <div class="relative flex items-start gap-4 py-2.5">
+              <div class="relative z-10 w-8 h-8 rounded-full bg-ink border-2 border-pink flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-pink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v7a3 3 0 0 0 6 0V3"/><path d="M9 10v11"/><path d="M17 3c-1.7 0-3 2-3 5s1.3 5 3 5 1-11 0-11Z"/></svg>
+              </div>
+              <div class="pt-1">
+                <p class="text-[10px] font-mono uppercase tracking-widest text-pink">Dinner</p>
+                <p class="font-display font-bold leading-tight">Prego Italian</p>
+              </div>
+            </div>
+
+            <div class="relative flex items-start gap-4 py-2.5">
+              <div class="relative z-10 w-8 h-8 rounded-full bg-ink border-2 border-gold flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg>
+              </div>
+              <div class="pt-1">
+                <p class="text-[10px] font-mono uppercase tracking-widest text-gold">Nightcap</p>
+                <p class="font-display font-bold leading-tight">The Westin</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-divider my-5"></div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-mono uppercase tracking-widest text-muted">Unlocks</p>
+              <p class="font-mono text-lg text-blue font-bold">5:00 PM</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[11px] font-mono uppercase tracking-widest text-muted">Curation fee</p>
+              <p class="font-mono text-lg font-bold">₹149</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="border-t border-hairline/70 bg-surface/40">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20">
+    <div class="max-w-xl">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">How it works</h2>
+      <p class="mt-3 text-muted">Three steps. Two minutes of your time, then hand it over to us.</p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <div class="relative rounded-2xl border border-hairline bg-surface p-7">
+        <span class="font-mono text-sm text-pink">01</span>
+        <h3 class="font-display font-bold text-xl mt-3">Tell us your vibe & budget</h3>
+        <p class="mt-2 text-sm text-muted leading-relaxed">Chill, adventurous, or fancy — plus your budget, timing, and food preference. Takes under a minute.</p>
+      </div>
+      <div class="relative rounded-2xl border border-hairline bg-surface p-7">
+        <span class="font-mono text-sm text-blue">02</span>
+        <h3 class="font-display font-bold text-xl mt-3">Pay the ₹149 curation fee</h3>
+        <p class="mt-2 text-sm text-muted leading-relaxed">One flat fee, paid over UPI, card, or net banking. No subscription, no hidden charges on top.</p>
+      </div>
+      <div class="relative rounded-2xl border border-hairline bg-surface p-7">
+        <span class="font-mono text-sm text-gold">03</span>
+        <h3 class="font-display font-bold text-xl mt-3">Get a locked PDF</h3>
+        <p class="mt-2 text-sm text-muted leading-relaxed">It lands in your WhatsApp right away — but stays sealed until your desired time on date night, so it's still a surprise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST / SNEAK PEEK -->
+<section class="border-t border-hairline/70">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20">
+    <div class="max-w-xl">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">We already know the city</h2>
+      <p class="mt-3 text-muted">Every stop is hand-picked from places we've actually vetted. Hover to peek — your real itinerary stays a surprise.</p>
+    </div>
+
+    <div class="mt-12 grid sm:grid-cols-3 gap-6">
+      <!-- Dine -->
+      <div class="rounded-2xl border border-hairline bg-surface p-6">
+        <p class="font-mono text-xs uppercase tracking-widest text-pink mb-4">Dine</p>
+        <ul class="space-y-3">
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Little Italy</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Aila Liberty</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Cafe One Ten</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">One8 Commune</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Blue Sea Restaurant</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Explore -->
+      <div class="rounded-2xl border border-hairline bg-surface p-6">
+        <p class="font-mono text-xs uppercase tracking-widest text-blue mb-4">Explore</p>
+        <ul class="space-y-3">
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Go-Karting</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Charminar</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Ramoji Film City</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+        </ul>
+      </div>
+      <!-- Unwind -->
+      <div class="rounded-2xl border border-hairline bg-surface p-6">
+        <p class="font-mono text-xs uppercase tracking-widest text-gold mb-4">Unwind</p>
+        <ul class="space-y-3">
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">OYO Rooms</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Marriott</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+          <li class="venue-card relative rounded-lg bg-ink/60 border border-hairline px-4 py-3 overflow-hidden">
+            <span class="venue-blur block font-medium">Taj Falaknuma Palace</span>
+            <span class="peek-hint absolute inset-0 flex items-center justify-center text-[11px] font-mono text-muted">peek →</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section id="book" class="border-t border-hairline/70">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20">
+    <div class="grid lg:grid-cols-5 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Plan my date</h2>
+        <p class="mt-3 text-muted leading-relaxed">Fill this in, pay ₹149, and we'll take it from here. Your itinerary reaches you on WhatsApp — sealed until your desired time on the day.</p>
+
+        <div class="mt-8 space-y-4">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-blue shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg>
+            <p class="text-sm text-muted">Secure payment, no card details stored</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-blue shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg>
+            <p class="text-sm text-muted">Every itinerary curated by a human, not an algorithm</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-blue shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg>
+            <p class="text-sm text-muted">Delivered straight to WhatsApp, no app to download</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        <form id="roulette-form" class="rounded-2xl border border-hairline bg-surface p-6 sm:p-8 space-y-5">
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-slate-200 mb-1.5">Your name</label>
+              <input id="name" name="name" type="text" required placeholder="e.g. Akshat"
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 placeholder:text-muted/70 focus:border-blue focus:ring-0 outline-none transition" />
+            </div>
+            <div>
+              <label for="whatsapp" class="block text-sm font-medium text-slate-200 mb-1.5">WhatsApp number</label>
+              <input id="whatsapp" name="whatsapp" type="tel" required placeholder="10-digit number"
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 placeholder:text-muted/70 focus:border-blue focus:ring-0 outline-none transition" />
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="vibe" class="block text-sm font-medium text-slate-200 mb-1.5">What's the vibe?</label>
+              <select id="vibe" name="vibe" required
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition appearance-none">
+                <option value="" disabled selected>Choose one</option>
+                <option value="chill">Chill / Cozy</option>
+                <option value="adventurous">Adventurous</option>
+                <option value="fancy">Fancy / Romantic</option>
+                <option value="quirky">Quirky / Offbeat</option>
+                <option value="active">Active / Sporty</option>
+                <option value="artsy">Artsy / Cultural</option>
+                <option value="nostalgic">Nostalgic / Throwback</option>
+                <option value="surprise-me">Full Surprise (you pick)</option>
+              </select>
+            </div>
+            <div>
+              <label for="budget" class="block text-sm font-medium text-slate-200 mb-1.5">Total date budget</label>
+              <select id="budget" name="budget" required
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition appearance-none">
+                <option value="" disabled selected>Choose one</option>
+                <option value="1500">₹1,500</option>
+                <option value="3000">₹3,000</option>
+                <option value="5000">₹5,000</option>
+                <option value="5000+">₹5,000+</option>
+                <option value="custom">Enter my own amount</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Budget slider + custom amount, shown alongside the dropdown -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="budget-slider" class="block text-sm font-medium text-slate-200">Or drag to set a budget</label>
+              <span id="budget-slider-value" class="font-mono text-sm text-blue font-bold">₹3,000</span>
+            </div>
+            <input id="budget-slider" type="range" min="500" max="10000" step="100" value="3000"
+              class="w-full h-2 rounded-full bg-ink/70 border border-hairline accent-pink cursor-pointer" />
+            <div class="flex items-center justify-between text-[11px] text-muted font-mono mt-1">
+              <span>₹500</span>
+              <span>₹10,000+</span>
+            </div>
+
+            <div id="custom-budget-wrap" class="hidden mt-3">
+              <label for="budget-custom" class="block text-sm font-medium text-slate-200 mb-1.5">Your exact budget</label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted text-sm">₹</span>
+                <input id="budget-custom" type="number" min="0" step="50" placeholder="e.g. 2200"
+                  class="w-full rounded-lg bg-ink/70 border border-hairline pl-8 pr-4 py-3 text-sm text-slate-100 placeholder:text-muted/70 focus:border-blue focus:ring-0 outline-none transition" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label for="date" class="block text-sm font-medium text-slate-200 mb-1.5">Date night date</label>
+            <input id="date" name="date" type="date" required
+              class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition [color-scheme:dark]" />
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="start-time" class="block text-sm font-medium text-slate-200 mb-1.5">What time should the date start?</label>
+              <input id="start-time" name="start_time" type="time" required
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition [color-scheme:dark]" />
+            </div>
+            <div>
+              <label for="duration" class="block text-sm font-medium text-slate-200 mb-1.5">How many hours should it run?</label>
+              <select id="duration" name="duration_hours" required
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition appearance-none">
+                <option value="" disabled selected>Choose one</option>
+                <option value="2">2 hours</option>
+                <option value="3">3 hours</option>
+                <option value="4">4 hours</option>
+                <option value="5">5 hours</option>
+                <option value="6+">6+ hours</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="diet" class="block text-sm font-medium text-slate-200 mb-1.5">Food preference</label>
+            <select id="diet" name="diet" required
+              class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition appearance-none">
+              <option value="" disabled selected>Choose one</option>
+              <option value="veg">Vegetarian</option>
+              <option value="non-veg">Non-Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="no-preference">No preference</option>
+            </select>
+          </div>
+
+          <div class="dash-divider"></div>
+
+          <div>
+            <p class="block text-sm font-medium text-slate-200 mb-2">How do you want to pay?</p>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="pay-tab cursor-pointer">
+                <input type="radio" name="payment_method" value="upi" class="sr-only" checked>
+                <div class="rounded-lg border border-hairline bg-ink/70 px-2 py-2.5 text-center text-xs sm:text-sm font-medium text-slate-300 transition">UPI</div>
+              </label>
+              <label class="pay-tab cursor-pointer">
+                <input type="radio" name="payment_method" value="card" class="sr-only">
+                <div class="rounded-lg border border-hairline bg-ink/70 px-2 py-2.5 text-center text-xs sm:text-sm font-medium text-slate-300 transition">Card</div>
+              </label>
+              <label class="pay-tab cursor-pointer">
+                <input type="radio" name="payment_method" value="netbanking" class="sr-only">
+                <div class="rounded-lg border border-hairline bg-ink/70 px-2 py-2.5 text-center text-xs sm:text-sm font-medium text-slate-300 transition">Net Banking</div>
+              </label>
+            </div>
+
+            <!-- UPI panel -->
+            <div id="upi-panel" class="mt-4 rounded-xl border border-hairline bg-ink/60 p-5 text-center">
+              <div id="upi-qr" class="mx-auto inline-block p-2.5 bg-white rounded-lg"></div>
+              <p class="mt-3 text-sm font-medium">Scan to pay</p>
+              <p class="text-xs text-muted font-mono mt-1">UPI ID: weekendroulette@okhdfcbank</p>
+              <p class="text-[11px] text-muted mt-2">Demo QR for testing — hit submit once "paid"</p>
+            </div>
+
+            <!-- Card panel -->
+            <div id="card-panel" class="hidden mt-4 rounded-xl border border-hairline bg-ink/60 p-5 space-y-3">
+              <input type="text" placeholder="Card number" inputmode="numeric"
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 placeholder:text-muted/70 focus:border-blue focus:ring-0 outline-none transition" />
+              <div class="grid grid-cols-2 gap-3">
+                <input type="text" placeholder="MM / YY"
+                  class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 placeholder:text-muted/70 focus:border-blue focus:ring-0 outline-none transition" />
+                <input type="text" placeholder="CVV" inputmode="numeric"
+                  class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 placeholder:text-muted/70 focus:border-blue focus:ring-0 outline-none transition" />
+              </div>
+              <p class="text-[11px] text-muted">Demo fields for testing — nothing is stored or charged</p>
+            </div>
+
+            <!-- Net banking panel -->
+            <div id="netbanking-panel" class="hidden mt-4 rounded-xl border border-hairline bg-ink/60 p-5">
+              <label for="bank" class="block text-sm font-medium text-slate-200 mb-1.5">Choose your bank</label>
+              <select id="bank"
+                class="w-full rounded-lg bg-ink/70 border border-hairline px-4 py-3 text-sm text-slate-100 focus:border-blue focus:ring-0 outline-none transition appearance-none">
+                <option value="" disabled selected>Select bank</option>
+                <option>State Bank of India</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Other</option>
+              </select>
+              <p class="text-[11px] text-muted mt-2">Demo field for testing — you'll be redirected to your bank in a live version</p>
+            </div>
+          </div>
+
+          <button type="submit" id="pay-submit-btn"
+            class="w-full rounded-xl bg-gradient-to-r from-pink to-blue px-6 py-4 font-display font-bold text-ink text-base shadow-glow-blue hover:brightness-110 active:scale-[0.99] transition">
+            Pay <strike>149</strike> ₹0 and Submit
+          </button>
+          <p class="text-center text-xs text-muted font-mono">Flat fee · no refunds after itinerary is sent</p>
+        </form>
+
+        <!-- Revealed only after a successful "payment" -->
+        <div id="unlocked-panel" class="hidden mt-8 rounded-2xl border border-green/40 bg-surface p-6 sm:p-8">
+          <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-green">
+            <span class="w-2 h-2 rounded-full bg-green pulse-dot"></span>
+            Payment received (demo)
+          </div>
+          <h3 class="font-display font-bold text-2xl mt-3">Here's a peek at how we plan</h3>
+          <p class="mt-2 text-sm text-muted max-w-xl">This sample shows the level of detail behind every itinerary — budget tiers, reservation windows, travel buffers, timing. Yours follows the same structure, personalised to what you just told us, and stays sealed until your desired time on the day.</p>
+          <a href="sample-itinerary.pdf" target="_blank" rel="noopener"
+            class="mt-5 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-pink to-blue px-5 py-3 text-sm font-display font-bold text-ink hover:brightness-110 transition">
+            Open sample itinerary (PDF) →
+          </a>
+        </div>
+
+        <!-- More reviews, directly under the form -->
+        <div class="mt-10">
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-4">What recent bookers said</p>
+          <div class="space-y-4">
+            <div class="rounded-xl border border-hairline bg-surface p-5 flex gap-4">
+              <div class="w-9 h-9 rounded-full bg-pink/20 border border-pink/40 flex items-center justify-center font-display font-bold text-pink shrink-0">P</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium font-display">Priya & Arjun</p>
+                  <span class="text-gold text-xs">★★★★★</span>
+                </div>
+                <p class="mt-1 text-sm text-muted leading-relaxed">"Honestly didn't expect much for ₹149, but the itinerary felt like it was made by someone who actually knew the city. Zero regrets."</p>
+              </div>
+            </div>
+            <div class="rounded-xl border border-hairline bg-surface p-5 flex gap-4">
+              <div class="w-9 h-9 rounded-full bg-blue/20 border border-blue/40 flex items-center justify-center font-display font-bold text-blue shrink-0">K</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium font-display">Kabir S.</p>
+                  <span class="text-gold text-xs">★★★★★</span>
+                </div>
+                <p class="mt-1 text-sm text-muted leading-relaxed">"We picked our own desired unlock time and it still felt like a surprise. That timing detail actually made it more exciting, not less."</p>
+              </div>
+            </div>
+            <div class="rounded-xl border border-hairline bg-surface p-5 flex gap-4">
+              <div class="w-9 h-9 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center font-display font-bold text-gold shrink-0">D</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium font-display">Divya M.</p>
+                  <span class="text-gold text-xs">★★★★★</span>
+                </div>
+                <p class="mt-1 text-sm text-muted leading-relaxed">"Filled the form on my lunch break, forgot about it, and then had the best surprise Friday in months. Booking again next month."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fake "payment gateway" confirmation modal -->
+<div id="payment-modal" class="hidden fixed inset-0 z-[60] items-center justify-center px-4">
+  <div id="payment-modal-backdrop" class="absolute inset-0 bg-ink/80 backdrop-blur-sm"></div>
+  <div class="relative w-full max-w-sm rounded-2xl border border-hairline bg-surface p-6 sm:p-7 shadow-2xl shadow-black/60">
+    <div class="flex items-center justify-between text-xs font-mono text-muted uppercase tracking-widest">
+      <span>Payment Gateway</span>
+      <span class="flex items-center gap-1.5 text-gold"><span class="w-1.5 h-1.5 rounded-full bg-gold pulse-dot"></span>Awaiting confirmation</span>
+    </div>
+    <div class="mt-5 rounded-xl bg-ink/60 border border-hairline p-5 text-center">
+      <p class="text-sm text-muted">Amount payable</p>
+      <p class="font-display font-bold text-3xl mt-1">₹149</p>
+      <p id="payment-modal-method" class="mt-2 text-xs text-muted font-mono uppercase tracking-widest">via UPI</p>
+    </div>
+    <p class="mt-4 text-xs text-muted leading-relaxed">This is a demo gateway for testing — no real transaction happens. Click below once you'd normally see "payment successful."</p>
+    <button id="confirm-payment-btn" type="button"
+      class="mt-5 w-full rounded-xl bg-gradient-to-r from-pink to-blue px-6 py-3.5 font-display font-bold text-ink text-base shadow-glow-blue hover:brightness-110 active:scale-[0.99] transition">
+      Confirm Payment
+    </button>
+    <button id="cancel-payment-btn" type="button" class="mt-2 w-full rounded-xl px-6 py-2.5 text-sm text-muted hover:text-slate-200 transition">
+      Cancel
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="border-t border-hairline/70">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-pink"></span>
+      <span class="font-display font-semibold">Weekend<span class="text-pink">Roulette</span></span>
+    </div>
+    <p class="text-xs text-muted font-mono">Curated date nights · ₹149 flat · Hyderabad</p>
+  </div>
+</footer>
+
+<script>
+  // ---------------------------------------------------------------------
+  // BACKEND — every event (page view, "Pay & Submit" click, and final
+  // "Confirm Payment" click) is appended as a row to a Google Sheet via a
+  // Google Apps Script Web App. The sheet doubles as your database (full
+  // lead details land on the row where event = "payment_confirmed") and
+  // your analytics log (count rows by "event" to get impressions / clicks).
+  //
+  // SETUP (one-time, ~5 minutes, no server needed):
+  // 1. Go to sheets.google.com, create a new sheet, e.g. "Weekend Roulette Leads".
+  // 2. In that sheet: Extensions -> Apps Script. Delete the placeholder code
+  //    and paste this instead:
+  //
+  //      function doPost(e) {
+  //        var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  //        if (sheet.getLastRow() === 0) {
+  //          sheet.appendRow(['Timestamp', 'Event', 'Name', 'WhatsApp', 'Vibe',
+  //            'Budget', 'Date', 'Start Time', 'Duration (hrs)', 'Diet', 'Payment Method', 'Page URL']);
+  //        }
+  //        var data = JSON.parse(e.postData.contents);
+  //        sheet.appendRow([
+  //          new Date(), data.event || '', data.name || '', data.whatsapp || '',
+  //          data.vibe || '', data.budget || '', data.date || '', data.start_time || '',
+  //          data.duration_hours || '', data.diet || '', data.payment_method || '', data.page_url || ''
+  //        ]);
+  //        return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
+  //          .setMimeType(ContentService.MimeType.JSON);
+  //      }
+  //
+  // 3. Click Deploy -> New deployment -> type "Web app".
+  //    Execute as: Me. Who has access: Anyone. Click Deploy, allow access.
+  // 4. Copy the Web app URL it gives you and paste it below as SHEET_WEBHOOK_URL.
+  // Until you paste a URL, everything just logs to the browser console so you
+  // can still test the flow locally.
+  //
+  // READING YOUR NUMBERS once rows are flowing in: open the sheet, pick any
+  // empty cell, and use COUNTIF against column B (Event):
+  //   Impressions:        =COUNTIF(B:B,"page_view")
+  //   Pay button clicks:  =COUNTIF(B:B,"pay_click")
+  //   Confirmed payments: =COUNTIF(B:B,"payment_confirmed")
+  // Every "payment_confirmed" row is a full lead — that's your database;
+  // filter/sort/export it like any spreadsheet.
+  // ---------------------------------------------------------------------
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbydjVyimGIrVQSpCXrfDxJ8oooxxnKJem8g9nCCaH15G-0YaOIcWIx8iuDMXXzQ7aLU/exec'; // <-- paste your Google Apps Script Web App URL here
+
+  function logEvent(eventName, payload) {
+    const body = Object.assign({ event: eventName, page_url: window.location.href, timestamp: new Date().toISOString() }, payload || {});
+    if (!SHEET_WEBHOOK_URL) {
+      console.log('[Weekend Roulette] SHEET_WEBHOOK_URL not set yet — would have logged:', body);
+      return;
+    }
+    // "no-cors" + a plain-text body keeps this a "simple request" so the
+    // browser doesn't need the Apps Script to send CORS headers back.
+    fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(body),
+    }).catch((err) => console.warn('[Weekend Roulette] Could not reach sheet webhook:', err));
+  }
+
+  // --- Impression tracking: fires once per page load ---
+  logEvent('page_view');
+
+  // --- Client-side QR code (no external API call needed) ---
+  new QRCode(document.getElementById('upi-qr'), {
+    text: 'upi://pay?pa=weekendroulette@okhdfcbank&pn=WeekendRoulette&am=149&cu=INR',
+    width: 150,
+    height: 150,
+    colorDark: '#0A0E1A',
+    colorLight: '#FFFFFF',
+    correctLevel: QRCode.CorrectLevel.M,
+  });
+
+  // --- Payment method switcher ---
+  const paymentPanels = {
+    upi: document.getElementById('upi-panel'),
+    card: document.getElementById('card-panel'),
+    netbanking: document.getElementById('netbanking-panel'),
+  };
+  function updatePaymentPanels() {
+    const selected = document.querySelector('input[name="payment_method"]:checked').value;
+    Object.entries(paymentPanels).forEach(([key, el]) => {
+      el.classList.toggle('hidden', key !== selected);
+    });
+  }
+  document.querySelectorAll('input[name="payment_method"]').forEach((input) => {
+    input.addEventListener('change', updatePaymentPanels);
+  });
+  updatePaymentPanels();
+
+  // --- Budget dropdown <-> slider <-> custom amount, kept in sync ---
+  const budgetSelect = document.getElementById('budget');
+  const budgetSlider = document.getElementById('budget-slider');
+  const budgetSliderValue = document.getElementById('budget-slider-value');
+  const budgetCustomWrap = document.getElementById('custom-budget-wrap');
+  const budgetCustomInput = document.getElementById('budget-custom');
+
+  function formatRupees(n) {
+    return '₹' + Number(n).toLocaleString('en-IN');
+  }
+  budgetSlider.addEventListener('input', function () {
+    budgetSliderValue.textContent = formatRupees(budgetSlider.value) + (Number(budgetSlider.value) >= 10000 ? '+' : '');
+    budgetSelect.value = 'custom';
+    budgetCustomWrap.classList.remove('hidden');
+    budgetCustomInput.value = budgetSlider.value;
+  });
+  budgetSelect.addEventListener('change', function () {
+    if (budgetSelect.value === 'custom') {
+      budgetCustomWrap.classList.remove('hidden');
+      budgetCustomInput.focus();
+    } else {
+      budgetCustomWrap.classList.add('hidden');
+      if (budgetSelect.value) {
+        const numeric = parseInt(budgetSelect.value, 10);
+        if (!isNaN(numeric)) {
+          budgetSlider.value = Math.min(numeric, 10000);
+          budgetSliderValue.textContent = formatRupees(budgetSlider.value) + (numeric >= 10000 ? '+' : '');
+        }
+      }
+    }
+  });
+  budgetCustomInput.addEventListener('input', function () {
+    if (budgetCustomInput.value) {
+      budgetSlider.value = Math.min(Math.max(Number(budgetCustomInput.value), 500), 10000);
+      budgetSliderValue.textContent = formatRupees(budgetCustomInput.value);
+    }
+  });
+
+  function getBudgetValue() {
+    if (budgetSelect.value === 'custom') {
+      return budgetCustomInput.value ? formatRupees(budgetCustomInput.value) : formatRupees(budgetSlider.value);
+    }
+    return budgetSelect.value;
+  }
+
+  // --- Two-step "payment" flow: Pay & Submit -> modal -> Confirm Payment ---
+  const paymentModal = document.getElementById('payment-modal');
+  const paymentModalMethod = document.getElementById('payment-modal-method');
+  let pendingLead = null;
+
+  function openPaymentModal() {
+    paymentModal.classList.remove('hidden');
+    paymentModal.classList.add('flex');
+  }
+  function closePaymentModal() {
+    paymentModal.classList.add('hidden');
+    paymentModal.classList.remove('flex');
+  }
+
+  document.getElementById('roulette-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const vibe = document.getElementById('vibe').value;
+    const budget = getBudgetValue();
+    const date = document.getElementById('date').value;
+    const startTime = document.getElementById('start-time').value;
+    const durationHours = document.getElementById('duration').value;
+    const diet = document.getElementById('diet').value;
+    const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
+    if (!name || !whatsapp || !vibe || !budget || !date || !startTime || !durationHours || !diet) {
+      alert('Please fill in every field before continuing to payment.');
+      return;
+    }
+
+    pendingLead = { name, whatsapp, vibe, budget, date, start_time: startTime, duration_hours: durationHours, diet, payment_method: paymentMethod };
+
+    // Tracked separately from the final confirmation so you can see the
+    // drop-off between "clicked pay" and "actually confirmed."
+    logEvent('pay_click', pendingLead);
+
+    paymentModalMethod.textContent = 'via ' + paymentMethod.toUpperCase();
+    openPaymentModal();
+  });
+
+  document.getElementById('confirm-payment-btn').addEventListener('click', function () {
+    if (!pendingLead) return;
+
+    logEvent('payment_confirmed', pendingLead);
+
+    closePaymentModal();
+    const unlockedPanel = document.getElementById('unlocked-panel');
+    unlockedPanel.classList.remove('hidden');
+    unlockedPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('cancel-payment-btn').addEventListener('click', closePaymentModal);
+  document.getElementById('payment-modal-backdrop').addEventListener('click', closePaymentModal);
+</script>
+
+</body>
+</html>
