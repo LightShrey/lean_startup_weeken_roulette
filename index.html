@@ -181,7 +181,7 @@
 <!-- HOW IT WORKS -->
 <section class="border-t border-hairline/70 bg-surface/40">
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20">
-    <div class="max-w-xl">
+    <div class="max-w-xl">Fa
       <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">How it works</h2>
       <p class="mt-3 text-muted">Three steps. Two minutes of your time, then hand it over to us.</p>
     </div>
@@ -469,7 +469,7 @@
 
           <button type="submit" id="pay-submit-btn"
             class="w-full rounded-xl bg-gradient-to-r from-pink to-blue px-6 py-4 font-display font-bold text-ink text-base shadow-glow-blue hover:brightness-110 active:scale-[0.99] transition">
-            Pay <strike>149</strike> ₹0 and Submit
+            Pay ₹149 and Submit
           </button>
           <p class="text-center text-xs text-muted font-mono">Flat fee · no refunds after itinerary is sent</p>
         </form>
@@ -482,7 +482,7 @@
           </div>
           <h3 class="font-display font-bold text-2xl mt-3">Here's a peek at how we plan</h3>
           <p class="mt-2 text-sm text-muted max-w-xl">This sample shows the level of detail behind every itinerary — budget tiers, reservation windows, travel buffers, timing. Yours follows the same structure, personalised to what you just told us, and stays sealed until your desired time on the day.</p>
-          <a href="Valentine_Operations_Manual.pdf_protected.pdf" target="_blank" rel="noopener"
+          <a href="sample-itinerary.pdf" target="_blank" rel="noopener"
             class="mt-5 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-pink to-blue px-5 py-3 text-sm font-display font-bold text-ink hover:brightness-110 transition">
             Open sample itinerary (PDF) →
           </a>
@@ -607,7 +607,7 @@
   // Every "payment_confirmed" row is a full lead — that's your database;
   // filter/sort/export it like any spreadsheet.
   // ---------------------------------------------------------------------
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbydjVyimGIrVQSpCXrfDxJ8oooxxnKJem8g9nCCaH15G-0YaOIcWIx8iuDMXXzQ7aLU/exec'; // <-- paste your Google Apps Script Web App URL here
+  const SHEET_WEBHOOK_URL = 'http://localhost:3000/submit'; // MongoDB backend
 
   function logEvent(eventName, payload) {
     const body = Object.assign({ event: eventName, page_url: window.location.href, timestamp: new Date().toISOString() }, payload || {});
@@ -757,4 +757,3 @@
 </script>
 
 </body>
-</html>
